@@ -1,35 +1,55 @@
-import * as $ from 'jquery';
 
-// Saves options to chrome.storage.sync.
-function save_options() {
-  var color = $('#color').val();
-  var likesColor = $('#like').prop('checked');
-  chrome.storage.sync.set({
-    favoriteColor: color,
-    likesColor: likesColor
-  }, function() {
-    // Update status to let user know options were saved.
-    var status = $('#status');
-    status.text('Options saved.');
+
+
+(function () {
+
+  // Saves options to chrome.storage.sync.
+  function save_options() {
+    // @ts-ignore
+    var username = document.getElementById("username").value;
+    // @ts-ignore
+    var password = document.getElementById("password").value;
+    // @ts-ignore
+    var server = document.getElementById("server").value;
+
+    localStorage['settings'] = JSON.stringify({
+      username : username,
+      password: password,
+      server: server
+    });
+
+    let status = document.getElementById("status");
+    status.innerText = 'Options saved.';
     setTimeout(function() {
-      status.text('');
+      status.innerText = '';
     }, 750);
-  });
-}
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function restore_options() {
-  // Use default value color = 'red' and likesColor = true.
-  chrome.storage.sync.get({
-    favoriteColor: 'red',
-    likesColor: true
-  }, function(items: {favoriteColor, likesColor}) {
-    $('#color').val(items.favoriteColor);
-    $('#like').prop('checked', items.likesColor);
-  });
-}
+  }
+  // @ts-ignore
+  document.getElementById('save').addEventListener("click", save_options);
 
-$('#save').click(save_options);
-$(restore_options); // document.addEventListener('DOMContentLoaded', restore_options);
+  // chrome.storage.sync.get({
+  //   username: '',
+  //   password: '',
+  //   server: ''
+  // }, function(items: {username, password, server}) {
+  //   // @ts-ignore
+  //   document.getElementById("username").value = items.username;
+  //   // @ts-ignore
+  //   document.getElementById("password").value = items.password;
+  //   // @ts-ignore
+  //   document.getElementById("server").value = items.server;
+  // });
+
+  let settingstr = localStorage['settings'];
+  if(settingstr) {
+    let setting = JSON.parse(settingstr);
+    // @ts-ignore
+    document.getElementById("username").value = setting.username;
+    // @ts-ignore
+    document.getElementById("password").value = setting.password;
+    // @ts-ignore
+    document.getElementById("server").value = setting.server;
+  }
+})();
 

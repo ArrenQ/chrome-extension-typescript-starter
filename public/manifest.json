@@ -1,24 +1,21 @@
 {
   "manifest_version": 2,
 
-  "name": "Chrome Extension TypeScript Starter",
-  "description": "Chrome Extension, TypeScript, Visual Studio Code",
-  "version": "1.0",
-
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
+  "name": "SEO Fetch",
+  "description": "辅助SEO抓取末班",
+  "version": "1.0.0",
 
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "icons/action_inactive.png",
+    "default_title": "使劲抓"
   },
 
   "content_scripts": [
       {
-          "matches": ["<all_urls>"],
-          "js": ["js/vendor.js", "js/content_script.js"]
+        "all_frames": false,
+        "matches": ["<all_urls>"],
+        "js": ["js/vendor.js", "js/content_script.js"],
+        "run_at": "document_end"
       }
   ],
 
@@ -26,8 +23,11 @@
     "scripts": ["js/vendor.js", "js/background.js"]
   },
 
+  "options_ui": {
+    "page": "options.html"
+  },
+
   "permissions": [
-    "storage",
-    "<all_urls>"
+    "tabs", "http://*/*", "https://*/*"
   ]
 }
