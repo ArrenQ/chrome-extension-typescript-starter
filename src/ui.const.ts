@@ -37,15 +37,13 @@ export const wndUI = `
 
     </div>
     <div class="eden_page_list">
-        <div><a id="eden_index_page_btn" class="eden-btn">记录index页</a><input type="text" id="eden_index_text"></div>
-        <div><a id="eden_list_page_btn" class="eden-btn">记录list页</a><input type="text" id="eden_list_text"></div>
-        <div><a id="eden_detail_page_btn" class="eden-btn">记录文章页</a><input type="text" id="eden_detail_text"></div>
-        <div><input type="text" id="eden_website_text"></div>
+        <div><label for="eden_website_text">website:</label><input type="text" id="eden_website_text"></div>
+        <div><a id="eden_select_btn" class="eden-btn">禁止浏览器动作</a></div>
     </div>
     <div>
-        <a id="eden_select_btn" class="eden-btn">禁止浏览器动作</a>
-        <a id="eden_history_get" class="eden-btn">获取历史</a>
-        <button id="eden_submit_btn" class="eden-btn">提交</button>
+        <button class="eden-btn eden_submit_btn" page-data="index">提交index</button>
+        <button class="eden-btn eden_submit_btn" page-data="list">提交list</button>
+        <button class="eden-btn eden_submit_btn" page-data="article">提交article</button>
     </div>
     <div class="ct_more">Made by <a href="#" target="_blank" rel="nofollow">Eden.SEO</a>. 如有疑问请联系: <a href="#" target="_blank" rel="nofollow">0927 658 9528</a></div>
     

@@ -64,10 +64,6 @@ export class UI {
         }, 10);
 
         this.listeners.fire("opened");
-        let noscript = document.querySelector("noscript");
-        if(noscript) {
-           alert("注意：这个网站有noscript标签，服务器将拒绝抓取");
-        }
     }
 
     public destroy() {
@@ -165,9 +161,18 @@ export class UI {
         this.setUserBehavior(!this.userBehavior);
     }
 
-    private doSubmit() {
+    private doSubmit(page: string) {
         this.disabledSubmitBtn();
-        Utils.sendData(this.template, data => {
+
+        this.template.erase();
+        this.hoveredSelector.remove();
+
+        //@ts-ignore
+        let website = document.querySelector("#eden_website_text").value;
+
+        let txt = Utils.htmlTxt(document.documentElement);
+
+        Utils.sendData(this.template.toData(), page, website, location.href, txt, data => {
             if(data.success) {
                 alert("提交成功");
             } else {
@@ -209,26 +214,13 @@ export class UI {
         });
 
         document.querySelector("#eden_select_btn").addEventListener("click", () => this.toggleUserBehavior(), true);
-        document.querySelector("#eden_submit_btn").addEventListener("click", () => this.doSubmit(), true);
 
-        document.querySelector("#eden_index_page_btn").addEventListener("click", () => {
-            this.template.indexPage = location.href;
-            // @ts-ignore
-            document.querySelector("#eden_index_text").value = location.href;
-            this.fireTemplateUpdate(false);
-        }, true);
-        document.querySelector("#eden_list_page_btn").addEventListener("click", () => {
-            this.template.listPage = location.href;
-            // @ts-ignore
-            document.querySelector("#eden_list_text").value = location.href;
-            this.fireTemplateUpdate(false);
-        }, true);
-        document.querySelector("#eden_detail_page_btn").addEventListener("click", () => {
-            this.template.articlePage = location.href;
-            // @ts-ignore
-            document.querySelector("#eden_detail_text").value = location.href;
-            this.fireTemplateUpdate(false);
-        }, true);
+        document.querySelectorAll(".eden_submit_btn").forEach(value => value.addEventListener("click", e => {
+            let button = e.target as HTMLButtonElement;
+            let page = button.getAttribute("page-data");
+            this.doSubmit(page);
+        }));
+
 
         document.addEventListener('mouseover', this.mouseoverListener, true);
         document.addEventListener('mousedown', this.mousedownListener, true);
@@ -255,13 +247,8 @@ export class UI {
 
     private initValueForTmp() {
         //@ts-ignore
-        document.querySelector("#eden_index_text").value = this.template.indexPage;
-        //@ts-ignore
-        document.querySelector("#eden_list_text").value = this.template.listPage;
-        //@ts-ignore
-        document.querySelector("#eden_detail_text").value = this.template.articlePage;
-        //@ts-ignore
-        document.querySelector("#eden_website_text").value = this.template.website;
+        document.querySelector("#eden_website_text").value =
+            location.hostname.replace(/^www\./, '');
 
         this.tabs.refresh(this.template);
     }
@@ -284,18 +271,23 @@ export class UI {
     }
 
     disabledSubmitBtn() {
-        document.querySelector("#eden_submit_btn").setAttribute("disabled", "");
-        // @ts-ignore
-        document.querySelector("#eden_submit_btn").style="background-color:#9c9c9c";
+        document.querySelectorAll(".eden_submit_btn").forEach(value => {
+            let ele = value as HTMLButtonElement;
+            ele.setAttribute("disabled", "");
+            // @ts-ignore
+            ele.style = "background-color:#9c9c9c";
+        });
     }
     enabledSubmitBtn() {
-        document.querySelector("#eden_submit_btn").removeAttribute("disabled");
-        // @ts-ignore
-        document.querySelector("#eden_submit_btn").style="";
+        document.querySelectorAll(".eden_submit_btn").forEach(value => {
+            let ele = value as HTMLButtonElement;
+            ele.removeAttribute("disabled");
+            // @ts-ignore
+            ele.style = "";
+        });
     }
 
     private fireTemplateUpdate(refreshUI: boolean) {
-        Utils.saveData(this.template);
         if(refreshUI) {
             this.tabs.refresh(this.template);
         }

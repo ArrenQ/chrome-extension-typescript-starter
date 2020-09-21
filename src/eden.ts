@@ -5,8 +5,14 @@ import {Template} from "./template/template";
 export class Eden {
 
     private enabled: boolean = false;
-    private template: Template = new Template();
-    private ui: UI = new UI(this.template);
+    private readonly template: Template;
+    private readonly ui: UI;
+
+    constructor() {
+        this.template = new Template();
+        this.ui = new UI(this.template);
+    }
+
     public init() {
         console.log("init run");
         // @ts-ignore
@@ -45,18 +51,13 @@ export class Eden {
      * 激活UI
      */
     activate() {
-        this.template.reload(() => {
+        this.ui.activate();
 
-            this.ui.activate();
+        this.enabled = true;
 
-            this.enabled = true;
+        this.sendStatus();
 
-            this.sendStatus();
-
-            this.ui.addListener("closed", () => this.deactivate());
-        });
-
-
+        this.ui.addListener("closed", () => this.deactivate());
     }
 
     sendStatus() {

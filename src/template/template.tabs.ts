@@ -82,7 +82,7 @@ export class TemplateTabs {
         let section = document.querySelector(".eden-tabs section#tmp-groups");
         let ol = section.querySelector("ol");
 
-        let selectPaths: string[] = TemplateData.toData(template)[group] as string[];
+        let selectPaths: string[] = template.toData()[group] as string[];
 
         let lines = [];
         selectPaths.forEach((path, index) => {
