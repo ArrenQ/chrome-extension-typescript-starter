@@ -9,6 +9,7 @@ export class Template {
     navGroup: Selector[] = [];
     atagGroup: Selector[] = [];
     interlinkGroup: Selector[] = [];
+    logoGroup: Selector[] = [];
 
     titleGroup: Selector[] = [];
     contentGroup: Selector[] = [];
@@ -26,6 +27,7 @@ export class Template {
         this.paint(this.atagGroup);
         this.paint(this.interlinkGroup);
         this.paint(this.removeGroup);
+        this.paint(this.logoGroup);
     }
 
     public erase() {
@@ -35,6 +37,7 @@ export class Template {
         this.eraseGroup(this.atagGroup);
         this.eraseGroup(this.interlinkGroup);
         this.eraseGroup(this.removeGroup);
+        this.eraseGroup(this.logoGroup);
     }
 
     private eraseGroup(group: Selector[]) {
@@ -66,6 +69,7 @@ export class Template {
         data.atagGroup = this.atagGroup.map(value => value.getPath());
         data.interlinkGroup = this.interlinkGroup.map(value => value.getPath());
         data.removeGroup = this.removeGroup.map(value => value.getPath());
+        data.logoGroup = this.logoGroup.map(value => value.getPath());
         return data;
     }
 }

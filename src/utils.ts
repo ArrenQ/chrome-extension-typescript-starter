@@ -88,7 +88,7 @@ export class Utils {
             if(random) {
                 (element as HTMLElement).classList.remove(random);
             }
-            random = Math.random().toString(36).substring(7);
+            random = "r-" + Math.random().toString(36).substring(7);
             (element as HTMLElement).classList.add(random);
             query = this.makeName(element);
         }
@@ -170,7 +170,13 @@ export class Utils {
     }
 
     private static queryLength(query): number {
-        let q = document.querySelectorAll(query);
+        let q;
+        try {
+            q = document.querySelectorAll(query);
+        } catch (e) {
+            alert("样式格式错误，建议换站，错误css: '" + query + "'");
+            throw e;
+        }
         if(q) {
             return q.length;
         } else {
@@ -188,7 +194,36 @@ export class Utils {
         return -1;
     }
 
+    private static pre(element: HTMLElement) {
+        let del = element.querySelector("#goog-gt-tt");
+        if(del) {
+            del.remove();
+        }
+        del = element.querySelector(".goog-te-spinner-pos");
+        if(del) {
+            del.remove();
+        }
+
+        Utils.clear(element);
+        element.querySelectorAll("*").forEach(value => {
+            Utils.clear(value);
+        })
+
+    }
+
+    private static clear(element) {
+        element.removeAttribute("old-outline");
+        element.removeAttribute("old-outlineOffset");
+        element.removeAttribute("old-outlineoffset");
+        element.removeAttribute("translated-ltr")
+        if(element.classList.contains("translated-ltr")) {
+            element.classList.remove("translated-ltr");
+        }
+    }
+
     public static htmlTxt(element: HTMLElement) {
+        Utils.pre(element);
+
         let inner = element.innerHTML;
         element.tagName;
 

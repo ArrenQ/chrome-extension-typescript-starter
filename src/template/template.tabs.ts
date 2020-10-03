@@ -1,5 +1,4 @@
 import {Template} from "./template";
-import {TemplateData} from "./template.data";
 import {Utils} from "../utils";
 
 export const tabsCSS = `
@@ -49,7 +48,8 @@ export const tabsCSS = `
 `;
 export const tabsUI = `
     <nav>
-        <a data-cont="navGroup"  class="active">菜单</a>
+        <a data-cont="navGroup"class="active">菜单</a>
+        <a data-cont="logoGroup">Logo</a>
         <a data-cont="atagGroup" >a标签</a>
         <a data-cont="titleGroup" >文章标题</a>
         <a data-cont="contentGroup">文章内容</a>

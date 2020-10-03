@@ -26,7 +26,7 @@ export class ColorSelector extends Selector {
             element.setAttribute("old-outlineOffset", element.style.outlineOffset);
         }
 
-        element.style.outline = `solid 5px ${group_color[this.group]}`;
+        element.style.outline = `solid 8px ${group_color[this.group]}`;
         element.style.outlineOffset = '-5px';
     }
 

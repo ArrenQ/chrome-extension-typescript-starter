@@ -2,6 +2,7 @@ import {settings} from "./settings";
 
 export const group_color = {
     navGroup: "rgba(255,109,28,0.5)",
+    logoGroup: "rgba(255,0,96,0.5)",
     titleGroup: "rgba(33,67,255,0.5)",
     contentGroup: "rgba(13,255,35,0.5)",
     atagGroup: "rgba(141,18,255,0.5)",
@@ -37,10 +38,10 @@ export const wndUI = `
 
     </div>
     <div class="eden_page_list">
-        <div><label for="eden_website_text">website:</label><input type="text" id="eden_website_text"></div>
+        <div><label for="eden_website_text">website:</label><input type="text" class="eden-input" id="eden_website_text"></div>
         <div><a id="eden_select_btn" class="eden-btn">禁止浏览器动作</a></div>
     </div>
-    <div>
+    <div >
         <button class="eden-btn eden_submit_btn" page-data="index">提交index</button>
         <button class="eden-btn eden_submit_btn" page-data="list">提交list</button>
         <button class="eden-btn eden_submit_btn" page-data="article">提交article</button>
@@ -137,7 +138,7 @@ export const wndCSS = `
 			#eden_seo_wnd.minimized .ct_close { display: block; }
 			#eden_seo_wnd.minimized .ct_minimize i { display: inline-block; transform: rotate(-135deg); }
 			#eden_seo_wnd.minimized .ct_logo.small { display: block; margin: -4px 0 0 -10px; }
-			.eden-btn {
+			#eden_seo_wnd .eden-btn {
 			    margin-right: 4px;
                 border: none;
                 display: inline-block;
@@ -151,5 +152,15 @@ export const wndCSS = `
                 cursor: pointer;
                 white-space: nowrap;
 			}
-			.eden_page_list div {    padding: 5px;}
+			#eden_seo_wnd .eden_page_list div {    padding: 5px;}
+			#eden_seo_wnd .eden-input {
+                border-top-radius: 2px;
+                border-bottom-radius: 2px;
+                border-color: rgb(230, 230, 230);
+                border-style: solid;
+                border-width: 1px;
+                font-size: 14px;
+                padding-left: 10px;
+                height: 38px;
+			}
         `;

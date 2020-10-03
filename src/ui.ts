@@ -8,8 +8,11 @@ import {Selector} from "./model/selector";
 
 export const cssLines = [wndCSS, tabsCSS];
 
+const BEFORE = 'W';
+const NEXT = 'Q';
 
 export class UI {
+
 
     private mouseoverListener = ev => this.mouseover(ev);
     private mousedownListener = ev => this.mousedown(ev);
@@ -39,6 +42,7 @@ export class UI {
         // 根据 wndUI 来创建 DIV 并插入到body中。
         let div = document.createElement("div");
         div.setAttribute("id", settings.toolsWindowId);
+        div.classList.add("notranslate");
         document.body.append(div);
         div.innerHTML = wndUI;
         this.toolsWindow = div;
@@ -114,11 +118,11 @@ export class UI {
         if(!hoveredElement) {
             return;
         }
-        if(e.altKey && e.keyCode == 81) { //Q
+        if(e.key.toUpperCase() == NEXT) { //Q
             this.hoveredSelector.previous();
             this.repaint()
             // this.mouseover({target: hoveredElement.parentElement})
-        } else if (e.altKey && e.keyCode == 87) { // w
+        } else if (e.key.toUpperCase() == BEFORE) { // w
             this.hoveredSelector.next();
             this.repaint();
             // this.mouseover({target: hoveredElement.nextElementSibling})

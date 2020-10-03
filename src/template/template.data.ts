@@ -2,6 +2,7 @@ export class TemplateData {
 
     website: string = "";
 
+    logoGroup: string[] = [];
     navGroup: string[] = [];
     titleGroup: string[] = [];
     contentGroup: string[] = [];
