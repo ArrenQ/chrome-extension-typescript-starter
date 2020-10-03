@@ -163,7 +163,10 @@ export class Utils {
             if(css === '') {
                 return name;
             }
-            let str = css.split(" ").map(value => value.trim()).join(".");
+            let str = css.split(" ")
+                .map(value => value.trim())
+                .filter(value => value.length > 0)
+                .join(".");
             name += "." + str;
         }
         return name;
